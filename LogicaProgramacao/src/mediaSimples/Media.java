@@ -8,10 +8,11 @@ public class Media {
         int res;
 
         for (int i = 0; i <= lista.length; i++) {
-            lista[i] += cont;
+            cont += lista[i];
         }
 
         res = cont/lista.length;
 
+        System.out.print(res);
     }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armazenando</title>
+</head>
+<body>
+    <script>
+        //Cria um objeto Javacript
+        var objtoJS   = {agencia: "5678-9", tipo: "física", nome: "Maria José", numero: "222.222-22"};
+
+        //Converte o objeto Javascript em texto JSON
+        var textoJson = JSON.stringify(objtoJS);
+
+        //Armazenando os dados no navegador
+        localStorage.setItem("stringJSON", textoJson);
+
+        //Cria uma variável para receber o conteúdo armazenado com localStorage
+        var jsonText = localStorage.getItem("stringJSON");
+
+        //Converte em um objeto Javascript
+        jsOBJ = JSON.parse(jsonText);
+
+        alert('Agência: ' + jsOBJ.agencia + ' Tipo: ' + jsOBJ.tipo + ' Nome: ' + jsOBJ.nome + ' Número: ' + jsOBJ.numero);
+   </script>
+</body>
+</html>

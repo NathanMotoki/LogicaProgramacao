@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisições AJAX com XML</title>
+    <style type="text/css">
+        table {border-collapse: collapse;}
+        th, td {padding: 15px;text-align: left;}
+        tr:nth-child(even) {background-color: #f2f2f2;}
+    </style>
+</head>
+<body>
+    <div id="resultado"></div>
+    <script type="text/javascript">
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) { 
+                manipulaXML(this);
+            }
+        };
+        xhttp.open("GET", "produto.xml", true);
+        xhttp.send();
+
+        function manipulaXML(xml) {
+            var xmlDoc = xml.responseXML;
+
+            var table = "<table>";
+            table += '<tr>';
+            var primeiroNoProduct = xmlDoc.getElementsByTagName("Product")[0];
+            var nosFilhosNoProduct = primeiroNoProduct.childNodes;
+
+            for (var j = 0; j < nosFilhosNoProduct.length; j++) {
+                var noFilho = nosFilhosNoProduct[j];
+                if (noFilho.nodeType === 1){
+                    table += '<th>'+noFilho.nodeName+'</th>';
+                }
+            }
+            table += '</tr>';
+            var nosProduct = xmlDoc.getElementsByTagName("Product");
+
+            for (var cont = 0; cont < nosProduct.length; cont++) {
+                var filhosNoProduct = nosProduct[cont].childNodes;
+                table += '<tr>';
+                for (var contFilhos = 0; contFilhos < filhosNoProduct.length; contFilhos++) {
+                    if (filhosNoProduct[contFilhos].nodeType === 1){
+                        table += (filhosNoProduct[contFilhos].firstChild) ? '<td>'+filhosNoProduct[contFilhos].firstChild.nodeValue+'</td>' :
+                        '<td>null</td>';
+                    }
+                }
+                table += '</tr>';
+            }
+            table += "</table>";
+            document.getElementById("resultado").innerHTML = table;
+        }
+    </script>
+</body>
+</html>
